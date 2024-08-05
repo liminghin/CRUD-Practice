@@ -71,6 +71,7 @@ class StudentsController extends Controller
     public function edit($id)
     {
         //
+        return view('students.edit', compact('student'));
     }
 
     /**
@@ -83,6 +84,17 @@ class StudentsController extends Controller
     public function update(Request $request, $id)
     {
         //
+        $request->validate([
+            'name' => 'required',
+            'email' => 'required|email|unique:students,email,',
+            $student-id,
+            'course' => 'required',
+        ]);
+
+        $student->update($request->all());
+
+        return redirect()->route('students.show', $student->id)->with('success', 'Student updated successfully');
+
     }
 
     /**
@@ -94,5 +106,8 @@ class StudentsController extends Controller
     public function destroy($id)
     {
         //
+        $student-delete();
+
+        return redirect()->route('students.index')->with('success', 'Student deleted successfully');
     }
 }
