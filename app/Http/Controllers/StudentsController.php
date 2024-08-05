@@ -27,6 +27,7 @@ class StudentsController extends Controller
     public function create()
     {
         //
+        return view('students.create');
     }
 
     /**
@@ -38,6 +39,15 @@ class StudentsController extends Controller
     public function store(Request $request)
     {
         //
+        $request->validate([
+            'name' => 'required',
+            'email' => 'required|email|unique:students',
+            'course' => 'required'
+        ]);
+
+        Student::create($request->all());
+
+        return redirect()->route('students.index')->with('success', 'Student created successfully');
     }
 
     /**
@@ -49,6 +59,7 @@ class StudentsController extends Controller
     public function show($id)
     {
         //
+        return view('students.show', compact('student'));
     }
 
     /**
