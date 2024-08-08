@@ -87,7 +87,7 @@ class StudentsController extends Controller
         $request->validate([
             'name' => 'required',
             'email' => 'required|email|unique:students,email,',
-            $student-id,
+            $student->id,
             'course' => 'required',
         ]);
 
